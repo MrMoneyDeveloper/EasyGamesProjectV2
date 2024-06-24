@@ -1,0 +1,61 @@
+﻿@page
+@model EasyGamesProjectV2.Pages.ClientModel
+@{
+    ViewData["Title"] = "Client Management Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="animate__animated animate__bounceInDown">Client Management Dashboard</h2>
+
+    <div id="filterErrorMessage" style="color:red; display:none;" class="animate__animated animate__fadeIn mt-4"></div>
+
+    <div id="clientListTab" class="tab-pane fade show active">
+        <h3 class="animate__animated animate__fadeIn">Client Portfolio</h3>
+
+        <!-- Filter and Sort Controls -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <input type="text" id="filterInput" class="form-control" placeholder="Filter by name or surname">
+            </div>
+            <div class="col-md-4">
+                <select id="sortSelect" class="form-control">
+                    <option value="">Sort by...</option>
+                    <option value="firstNameAsc">First Name (A-Z)</option>
+                    <option value="firstNameDesc">First Name (Z-A)</option>
+                    <option value="lastNameAsc">Last Name (A-Z)</option>
+                    <option value="lastNameDesc">Last Name (Z-A)</option>
+                    <option value="balanceAsc">Balance (Low-High)</option>
+                    <option value="balanceDesc">Balance (High-Low)</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="table mt-2 animate__animated animate__fadeIn" style="color:azure">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Balance</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="clientTableBody"></tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#" id="prevPage">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#" id="nextPage">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/clientapi.js"></script>
+    <script src="~/js/clientview.js"></script>
+    <script src="~/js/clientFilterSort.js"></script>
+    <script src="~/js/clientpagination.js"></script>
+}

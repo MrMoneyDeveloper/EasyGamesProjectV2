@@ -1,0 +1,216 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #1c1c1c;
+    color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.footer {
+    background-color: #333;
+    color: #ffa500;
+    padding: 1rem 0;
+    text-align: center;
+    animation: slideInUp 2s;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .footer .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer .footer-content {
+        font-size: 1rem;
+    }
+
+    .footer .footer-image {
+        display: flex;
+        align-items: center;
+    }
+
+    .footer .footer-image-img {
+        width: 100px;
+        height: auto;
+        border-radius: 15px;
+    }
+
+.navbar {
+    background-color: #333;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffa500 !important;
+}
+
+    .nav-link:hover {
+        color: #fff !important;
+    }
+
+.header {
+    background: url('https://assets.mixkit.co/videos/13942/13942-thumb-720-0.jpg') no-repeat center center;
+    background-size: cover;
+    height: 60vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+    .header h1 {
+        font-size: 3.5rem;
+        animation: bounceInDown 2s;
+    }
+
+    .header p {
+        font-size: 1.5rem;
+        animation: fadeInUp 2s;
+    }
+
+.feature-box {
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    text-align: center;
+    animation: fadeIn 1s;
+}
+
+    .feature-box h3 {
+        color: #ffa500;
+        margin-bottom: 10px;
+    }
+
+    .feature-box p {
+        font-size: 1rem;
+        color: #ccc;
+    }
+
+.project-card {
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    color: #f0f0f0;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 1s;
+}
+
+    .project-card img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .project-card p {
+        font-size: 1rem;
+        color: #ccc;
+    }
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #ffa500;
+    text-align: center;
+    animation: bounceInDown 2s;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #ffa500;
+    text-align: center;
+    animation: fadeInUp 2s;
+}
+
+h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #ffa500;
+    text-align: center;
+    animation: fadeInUp 2s;
+}
+
+/* Animations */
+@keyframes bounceInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-2000px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(30px);
+    }
+
+    80% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

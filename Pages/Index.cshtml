@@ -1,0 +1,125 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="~/css/index.css" rel="stylesheet" />
+</head>
+
+<div class="header animate__animated animate__fadeIn">
+    <div class="container">
+        <h1>Welcome to EasyGames</h1>
+        <p>Providing High-Performance Gaming and Software Solutions</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Explore Our Features</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <h3>Feature 1</h3>
+                <p>Our gaming platform supports high-speed transactions, ensuring a seamless experience for users.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <h3>Feature 2</h3>
+                <p>We offer a variety of games with stunning graphics and immersive gameplay.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <h3>Feature 3</h3>
+                <p>Our system is built with robust security features to protect your data and transactions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Our Projects</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="/images/1.jpg" alt="Project 1" class="img-fluid">
+                <p>Project 1 Description</p>
+                <p>This project involves creating a high-speed, reliable gaming platform with innovative features and stunning visuals.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="/images/2.jpg" alt="Project 2" class="img-fluid">
+                <p>Project 2 Description</p>
+                <p>This project focuses on developing an interactive and immersive virtual casino experience.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="/images/3.jpg" alt="Project 3" class="img-fluid">
+                <p>Project 3 Description</p>
+                <p>This project aims to enhance user engagement through AI-driven personalized gaming experiences.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true,
+        });
+
+        // Initialize Three.js for 3D containers
+        function init3D(containerId, imageUrl) {
+            var container = document.getElementById(containerId);
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            var renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            var geometry = new THREE.BoxGeometry();
+            var texture = new THREE.TextureLoader().load(imageUrl);
+            var material = new THREE.MeshBasicMaterial({ map: texture });
+            var cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 2;
+
+            var animate = function () {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            };
+            animate();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            init3D('3d-container-1', 'https://assets.mixkit.co/videos/13942/13942-thumb-720-0.jpg');
+            init3D('3d-container-2', 'https://assets.mixkit.co/videos/13942/13942-thumb-720-0.jpg');
+            init3D('3d-container-3', 'https://assets.mixkit.co/videos/13942/13942-thumb-720-0.jpg');
+        });
+    </script>
+}

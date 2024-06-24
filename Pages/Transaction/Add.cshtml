@@ -1,0 +1,170 @@
+﻿@page
+@model EasyGamesProjectV2.Pages.Transaction.AddTransactionModel
+@{
+    ViewData["Title"] = "Add Transaction";
+}
+
+<style>
+    /* Modal backdrop */
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Modal content */
+    .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Modal header */
+    .modal-header {
+        background-color: #f7a700; /* Orange background */
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    /* Modal title */
+    .modal-title {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    /* Modal body */
+    .modal-body {
+        padding: 20px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    /* Modal footer */
+    .modal-footer {
+        border-top: none;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Client balance */
+    .client-balance {
+        color: #f7a700;
+        text-align: right;
+    }
+
+    /* Transaction amounts */
+    .transaction-amount-positive {
+        color: green !important;
+    }
+
+    .transaction-amount-negative {
+        color: red !important;
+    }
+
+    .table-container .table th,
+    .table-container .table td {
+        border: 1px solid #444;
+        padding: 8px;
+        text-align: left;
+        color: #f0f0f0;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="heading animate__animated animate__bounceInDown">Transaction Management for @Model.ClientName</h2>
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="previous-transactions-tab" data-bs-toggle="tab" href="#previous-transactions" role="tab" aria-controls="previous-transactions" aria-selected="true">Previous Transactions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="add-transaction-tab" data-bs-toggle="tab" href="#add-transaction" role="tab" aria-controls="add-transaction" aria-selected="false">Add New Transaction</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="previous-transactions" role="tabpanel" aria-labelledby="previous-transactions-tab">
+            <div class="table-responsive table-container">
+                <table class="table mt-2 animate__animated animate__fadeIn table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Comment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        @for (int i = 0; i < Model.PreviousTransactions.Count; i++)
+                        {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@Model.PreviousTransactions[i].Amount</td>
+                                <td>@Model.PreviousTransactions[i].TransactionTypeName</td>
+                                <td>@Model.PreviousTransactions[i].Comment</td>
+                                <td>@Model.PreviousTransactions[i].TransactionDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" id="currentTotal">Transaction Total: R @Model.PreviousTransactions.Sum(t => t.Amount)</td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+                <h4 id="currentBalance" class="text-end">Client Balance: R @Model.ClientBalance</h4>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="add-transaction" role="tabpanel" aria-labelledby="add-transaction-tab">
+            <form id="addTransactionForm">
+                <input type="hidden" id="transactionClientId" name="transactionClientId" value="@Model.ClientID" />
+                <div class="form-group">
+                    <label for="transactionAmount">Transaction Amount:</label>
+                    <input type="number" id="transactionAmount" name="transactionAmount" min="0.01" step="0.01" required class="form-control animate__animated animate__fadeIn">
+                </div>
+                <div class="form-group">
+                    <label for="transactionType">Transaction Type:</label>
+                    <select id="transactionType" name="transactionType" required class="form-control animate__animated animate__fadeIn">
+                        <option value="1">Debit</option>
+                        <option value="2">Credit</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-info animate__animated animate__pulse animate__infinite">Add Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="errorMessage" style="color:red; display:none;" class="animate__animated animate__fadeIn mt-4"></div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="color: black">
+                Transaction added successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="reloadPageButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/transactionapi.js"></script>
+    <script src="~/js/modalHandler.js"></script>
+  
+    
+}

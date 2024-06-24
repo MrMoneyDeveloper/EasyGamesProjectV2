@@ -1,0 +1,148 @@
+﻿@page "{clientId:int}"
+@model EasyGamesProjectV2.Pages.Transaction.EditTransactionModel
+@{
+    ViewData["Title"] = "Modify Transactions";
+}
+
+<style>
+    /* Modal backdrop */
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Modal content */
+    .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Modal header */
+    .modal-header {
+        background-color: #f7a700; /* Orange background */
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    /* Modal title */
+    .modal-title {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    /* Modal body */
+    .modal-body {
+        padding: 20px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    /* Modal footer */
+    .modal-footer {
+        border-top: none;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Client balance */
+    .client-balance {
+        color: #f7a700;
+        text-align: right;
+    }
+
+    /* Transaction amounts */
+    .transaction-amount-positive {
+        color: green !important;
+    }
+
+    .transaction-amount-negative {
+        color: red !important;
+    }
+
+    .table-container .table th,
+    .table-container .table td {
+        border: 1px solid #444;
+        padding: 8px;
+        text-align: left;
+        color: #f0f0f0;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="animate__animated animate__bounceInDown">Modify Transactions for @Model.ClientName</h2>
+
+    <div class="table-responsive table-container">
+        <table class="table mt-2 animate__animated animate__fadeIn table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+                @for (int i = 0; i < Model.Transactions.Count; i++)
+                {
+                    var amountClass = Model.Transactions[i].TransactionTypeName == "Credit" ? "transaction-amount-negative" : "transaction-amount-positive";
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td class="@amountClass">@Model.Transactions[i].Amount</td>
+                        <td>@Model.Transactions[i].TransactionTypeName</td>
+                        <td>@Model.Transactions[i].Comment</td>
+                        <td>@Model.Transactions[i].TransactionDate</td>
+                        <td>
+                            <button class="btn btn-info btn-sm edit-comment" data-transaction-id="@Model.Transactions[i].TransactionID" data-comment="@Model.Transactions[i].Comment">Edit</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="client-balance" colspan="6" id="currentTotal">Transaction Total: R @Model.TransactionTotal</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div id="errorMessage" style="color:red; display:none;" class="animate__animated animate__fadeIn mt-4"></div>
+</div>
+
+<!-- Modal for editing comments -->
+<div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCommentModalLabel">Edit Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editTransactionId" />
+                <div class="mb-3">
+                    <label for="editComment" class="form-label" style="color:black">Comment</label>
+                    <select id="editComment" class="form-control">
+                        <option value="Winnings">Winnings</option>
+                        <option value="Losing">Losing</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveCommentButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/edittable.js"></script>
+}
