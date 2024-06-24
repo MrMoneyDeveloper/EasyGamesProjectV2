@@ -20,9 +20,9 @@ builder.Services.AddSwaggerGen(c =>
         Description = "An API for managing clients and transactions",
         Contact = new OpenApiContact
         {
-            Name = "Your Name",
-            Email = "your.email@example.com",
-            Url = new Uri("https://example.com")
+            Name = "Mohammad Farhaan Buckas",
+            Email = "mohammedfarhaanbuckas@outlook.com",
+            Url = new Uri("https://www.linkedin.com/in/mohammad-farhaan-buckas-2a67351b9/")
         },
     });
 });
